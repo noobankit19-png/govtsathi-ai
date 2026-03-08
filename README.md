@@ -1,1 +1,0 @@
-# govtsathi-ai

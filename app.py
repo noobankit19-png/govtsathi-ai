@@ -5,15 +5,21 @@ app = Flask(__name__)
 # ---------------- SCHEME DATABASE ----------------
 
 schemes = [
+
 {"name":"PM Kisan Samman Nidhi","occupation":"Farmer","income":500000,"category":"All","state":"All"},
-{"name":"Ayushman Bharat","occupation":"All","income":300000,"category":"All","state":"All"},
+{"name":"Ayushman Bharat Yojana","occupation":"All","income":300000,"category":"All","state":"All"},
 {"name":"PM Mudra Loan","occupation":"Business","income":800000,"category":"All","state":"All"},
 {"name":"Startup India","occupation":"Business","income":1000000,"category":"General","state":"All"},
 {"name":"National Scholarship","occupation":"Student","income":400000,"category":"SC","state":"All"},
 {"name":"Skill India Mission","occupation":"Unemployed","income":500000,"category":"All","state":"All"},
+{"name":"PM Awas Yojana","occupation":"All","income":300000,"category":"All","state":"All"},
+{"name":"PM Fasal Bima","occupation":"Farmer","income":800000,"category":"All","state":"All"},
+{"name":"Digital India Internship","occupation":"Student","income":600000,"category":"OBC","state":"All"},
+{"name":"Stand Up India","occupation":"Business","income":1000000,"category":"SC","state":"All"}
+
 ]
 
-# ---------------- AI LOGIC ----------------
+# ---------------- AI RECOMMENDATION ----------------
 
 def recommend(age,income,occupation,category,state):
 
@@ -37,7 +43,7 @@ def recommend(age,income,occupation,category,state):
     return results
 
 
-# ---------------- HTML ----------------
+# ---------------- WEBSITE HTML ----------------
 
 page = """
 
@@ -48,8 +54,6 @@ page = """
 
 <title>GovtSathi AI</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
 
 body{
@@ -59,111 +63,103 @@ background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:white;
 }
 
-/* container */
+/* Full screen */
 
 .container{
-display:flex;
-justify-content:center;
-align-items:center;
+width:100%;
 min-height:100vh;
-padding:20px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
-/* card */
+/* Animation */
+
+@keyframes fadeUp{
+0%{opacity:0; transform:translateY(30px);}
+100%{opacity:1; transform:translateY(0);}
+}
 
 .box{
+animation:fadeUp 1s ease;
 background:rgba(255,255,255,0.08);
 padding:40px;
 border-radius:15px;
-width:100%;
-max-width:850px;
+width:90%;
+max-width:900px;
 text-align:center;
-box-shadow:0 0 20px rgba(0,0,0,0.4);
+box-shadow:0 0 25px rgba(0,0,0,0.4);
 }
 
-/* logo */
+/* Logo */
 
 .logo{
-font-size:30px;
+font-size:34px;
 margin-bottom:10px;
 }
 
-/* form layout */
-
-.form-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
+/* Inputs */
 
 input,select{
+width:90%;
 padding:12px;
+margin:10px;
 border-radius:8px;
 border:none;
-width:100%;
+font-size:15px;
 }
 
-/* button */
+/* Button */
 
 button{
 background:#27ae60;
 color:white;
 border:none;
-padding:14px;
+padding:14px 30px;
 font-size:18px;
 border-radius:10px;
 cursor:pointer;
 transition:0.3s;
-width:100%;
-margin-top:10px;
 }
 
 button:hover{
 background:#2ecc71;
+transform:scale(1.05);
 }
 
-/* result */
+/* Language Switch */
+
+.lang{
+position:absolute;
+top:20px;
+right:20px;
+}
+
+.lang a{
+background:#27ae60;
+padding:8px 14px;
+color:white;
+text-decoration:none;
+border-radius:6px;
+margin-left:6px;
+}
+
+/* Result */
 
 .result{
 margin-top:20px;
 padding:20px;
 background:rgba(0,0,0,0.3);
 border-radius:10px;
+animation:fadeUp 1.2s ease;
 }
 
-/* language buttons */
+/* Footer */
 
-.lang{
-position:absolute;
-top:15px;
-right:15px;
-}
-
-.lang a{
-background:#27ae60;
-padding:7px 12px;
-color:white;
-text-decoration:none;
-border-radius:6px;
-margin-left:5px;
-}
-
-/* MOBILE RESPONSIVE */
-
-@media(max-width:768px){
-
-.form-grid{
-grid-template-columns:1fr;
-}
-
-.box{
-padding:25px;
-}
-
-.logo{
-font-size:24px;
-}
-
+footer{
+text-align:center;
+margin-top:40px;
+color:#ccc;
 }
 
 </style>
@@ -188,8 +184,6 @@ font-size:24px;
 
 <form method="POST">
 
-<div class="form-grid">
-
 <input type="number" name="age" placeholder="{{age}}" required>
 
 <input type="number" name="income" placeholder="{{income}}" required>
@@ -209,16 +203,21 @@ font-size:24px;
 </select>
 
 <select name="state">
+
 <option>All</option>
 <option>Haryana</option>
-<option>Delhi</option>
 <option>Punjab</option>
-<option>Rajasthan</option>
+<option>Delhi</option>
 <option>Uttar Pradesh</option>
+<option>Rajasthan</option>
 <option>Maharashtra</option>
+<option>Gujarat</option>
+<option>Madhya Pradesh</option>
+<option>Bihar</option>
+
 </select>
 
-</div>
+<br>
 
 <button type="submit">{{button}}</button>
 
@@ -246,8 +245,21 @@ font-size:24px;
 
 </div>
 
-</body>
+<footer>
 
+<hr style="border:1px solid rgba(255,255,255,0.2);width:80%;margin:auto;margin-top:30px;">
+
+<p>🚀 Design & Development by <b>ANKIT SAINI</b></p>
+
+<p>Email: as3126061@gmail.com</p>
+
+<p style="font-size:13px;color:#888;">
+© 2026 GovtSathi AI – Government Scheme Recommendation Platform
+</p>
+
+</footer>
+
+</body>
 </html>
 
 """
@@ -294,6 +306,7 @@ def home():
         result=recommend(age,income,occupation,category,state)
 
     return render_template_string(page,schemes=result,**text)
+
 
 if __name__=="__main__":
     app.run(host="0.0.0.0",port=10000)

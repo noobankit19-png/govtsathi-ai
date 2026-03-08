@@ -54,6 +54,8 @@ page = """
 
 <title>GovtSathi AI</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 
 body{
@@ -63,7 +65,7 @@ background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:white;
 }
 
-/* Full screen */
+/* Container */
 
 .container{
 width:100%;
@@ -71,6 +73,7 @@ min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
+padding:20px;
 }
 
 /* Animation */
@@ -85,7 +88,7 @@ animation:fadeUp 1s ease;
 background:rgba(255,255,255,0.08);
 padding:40px;
 border-radius:15px;
-width:90%;
+width:100%;
 max-width:900px;
 text-align:center;
 box-shadow:0 0 25px rgba(0,0,0,0.4);
@@ -98,12 +101,20 @@ font-size:34px;
 margin-bottom:10px;
 }
 
+/* Form Grid */
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px;
+}
+
 /* Inputs */
 
 input,select{
-width:90%;
+width:100%;
 padding:12px;
-margin:10px;
 border-radius:8px;
 border:none;
 font-size:15px;
@@ -115,11 +126,13 @@ button{
 background:#27ae60;
 color:white;
 border:none;
-padding:14px 30px;
+padding:14px;
 font-size:18px;
 border-radius:10px;
 cursor:pointer;
 transition:0.3s;
+width:100%;
+margin-top:10px;
 }
 
 button:hover{
@@ -127,7 +140,7 @@ background:#2ecc71;
 transform:scale(1.05);
 }
 
-/* Language Switch */
+/* Language switch */
 
 .lang{
 position:absolute;
@@ -160,6 +173,25 @@ footer{
 text-align:center;
 margin-top:40px;
 color:#ccc;
+padding:20px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.box{
+padding:25px;
+}
+
+.logo{
+font-size:26px;
+}
+
 }
 
 </style>
@@ -184,6 +216,8 @@ color:#ccc;
 
 <form method="POST">
 
+<div class="form-grid">
+
 <input type="number" name="age" placeholder="{{age}}" required>
 
 <input type="number" name="income" placeholder="{{income}}" required>
@@ -203,7 +237,6 @@ color:#ccc;
 </select>
 
 <select name="state">
-
 <option>All</option>
 <option>Haryana</option>
 <option>Punjab</option>
@@ -214,10 +247,9 @@ color:#ccc;
 <option>Gujarat</option>
 <option>Madhya Pradesh</option>
 <option>Bihar</option>
-
 </select>
 
-<br>
+</div>
 
 <button type="submit">{{button}}</button>
 
